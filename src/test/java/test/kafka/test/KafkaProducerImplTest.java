@@ -73,6 +73,7 @@ public class KafkaProducerImplTest {
             ConsumerRecords<String, String> records = consumer.poll(10);
             for (ConsumerRecord<String, String> record : records)
                 System.out.printf("offset = %d, key = %s, value = %s%n", record.offset(), record.key(), record.value());
+
         }
     }
 
