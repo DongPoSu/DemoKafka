@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<beans  xmlns="http://www.springframework.org/schema/beans"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xmlns:context="http://www.springframework.org/schema/context"
+            xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <context:property-placeholder location="kafka-consumer.properties"/>
+
+    <bean id="kafkaConsumerProperties" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+        <property name="location" value="kafka-consumer.properties"/>
+    </bean>
+
+    <bean id="consumer" class="test.kafka.KafkaConsumerImpl" init-method="init" destroy-method="destroy">
+        <property name="topicName" value="Order_MQ_Topic"/>
+        <property name="properties" ref="kafkaConsumerProperties"/>
+    </bean>
+
+</beans>
