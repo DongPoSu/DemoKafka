@@ -13,6 +13,7 @@ import java.util.Date;
  */
 public class DateUtil {
     public final static String DEFAULT_DATE_TIME_FORMAT = "yyyy-MM-dd HH:mm:ss";
+    public static final String YEAR_TO_SEC_UN_LINE = "yyyyMMdd HHmmss";
     public static String  getCurrDateStr(String dateFormat) {
         SimpleDateFormat sdf = new SimpleDateFormat(dateFormat);
         return sdf.format(new Date());

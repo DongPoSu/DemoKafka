@@ -1,7 +1,7 @@
 package test.kafka;
 
-import kafka.producer.KeyedMessage;
-import org.apache.kafka.clients.producer.*;
+import org.apache.kafka.clients.producer.KafkaProducer;
+import org.apache.kafka.clients.producer.ProducerRecord;
 import org.apache.log4j.Logger;
 
 import java.util.Properties;
@@ -28,13 +28,21 @@ public class KafkaProducerImpl implements IKafkaProducer {
     public boolean produce(String TOPIC, Object vo, String msgKey) {
         producer.send(new ProducerRecord<>(TOPIC, msgKey, getMessageBean(vo)),(metadata, exception) -> {
             // TODO: 2017/2/16 回调操作
-            System.out.printf("生产回调操作："+ exception.getMessage());
+            System.out.println("生产回调操作："+ metadata.topic()+":"+metadata.offset()+":"+metadata.partition());
         });
         logger.debug("kafka send TOPIC >>> " + TOPIC);
         destroy();
         return true;
     }
-
+    @Override
+    public boolean produce(String TOPIC,Object vo){
+        producer.send(new ProducerRecord<>(TOPIC,getMessageBean(vo)),(metadata, exception) -> {
+            System.out.println("生产回调操作："+ metadata.topic()+":"+metadata.offset()+":"+metadata.partition());
+        });
+        logger.debug("kafka send TOPIC >>> " + TOPIC);
+        destroy();
+        return true;
+    }
     private MessageBean getMessageBean(Object content) {
         final String nowTm = DateUtil.getCurrDateStr(DateUtil.DEFAULT_DATE_TIME_FORMAT);
         MessageBean msgBean = new MessageBean();

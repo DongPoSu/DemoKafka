@@ -12,7 +12,7 @@
     </bean>
 
     <bean id="consumer" class="test.kafka.KafkaConsumerImpl" init-method="init" destroy-method="destroy">
-        <property name="topicName" value="Order_MQ_Topic"/>
+        <property name="topicName" value="test"/>
         <property name="properties" ref="kafkaConsumerProperties"/>
     </bean>
 

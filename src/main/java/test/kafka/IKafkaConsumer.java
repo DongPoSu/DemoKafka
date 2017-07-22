@@ -1,9 +1,5 @@
 package test.kafka;
 
-import kafka.consumer.KafkaStream;
-
-import java.util.List;
-
 /**
  * author: suzheng
  * version: v.1.0

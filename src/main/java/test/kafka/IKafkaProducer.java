@@ -11,5 +11,6 @@ package test.kafka;
 interface IKafkaProducer {
     boolean produce(String TOPIC, Object vo, String msgKey);
     boolean produce(Object vo, String msgKey);
+    boolean produce(String TOPIC,Object vo);
     void destroy();
 }

@@ -1,15 +1,12 @@
 package test.kafka;
 
-import kafka.consumer.KafkaStream;
 import kafka.consumer.Whitelist;
-import kafka.message.MessageAndMetadata;
-import org.apache.kafka.clients.consumer.Consumer;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
 
 import java.util.Arrays;
-import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 
 /**
@@ -44,7 +41,7 @@ public class KafkaConsumerImpl implements IKafkaConsumer {
 
     @Override
     public void commitOffsets() {
-        consumer.commitSync();
+        consumer.commit(true);
     }
 
     @Override
@@ -63,11 +60,18 @@ public class KafkaConsumerImpl implements IKafkaConsumer {
     }
 
     private void loopConvertMessage(String topicName, IDealMessage dealMessage) {
-        consumer.subscribe(Arrays.asList(topicName));
+        consumer.subscribe(topicName);
         while (true) {
-            ConsumerRecords<String, MessageBean> records = consumer.poll(1000);
-            for (ConsumerRecord<String, MessageBean> record : records)
-                System.out.printf("offset = %d, key = %s, value = %s%n", record.offset(), record.key(), record.value());
+//            Whitelist whitelist = new Whitelist("test");
+//             consumer.createMessageStreamsByFilter(whitelist);
+
+//            Map<String, ConsumerRecords<String, MessageBean>> records = consumer.poll(1000);
+//            if(records != null){
+//                System.out.println(records.toString());
+//            }
+//            records.toString();
+//            for (ConsumerRecord<String, MessageBean> record : records)
+//                System.out.printf("offset = %d, key = %s, value = %s%n", record.offset(), record.key(), record.value());
         }
     }
 
